@@ -52,16 +52,16 @@
                 while ($row = $result->fetch_assoc()) {
                     ?>
                     <?php echo "<tr>";
-                    echo "<td>" . $row["user_id"] . "</td>";
+                    echo "<td>" . $row["id"] . "</td>";
                     echo "<td>" . $row["first_name"] . "</td>";
                     echo "<td>" . $row["last_name"] . "</td>";
                     echo "<td>" . $row["gender"] . "</td>";
                     echo "<td>" . $row["nationality"] . "</td>";
                     echo "<td>" . $row["email"] . "</td>";
                     echo "<td>";
-                    echo '<button type="button" data-toggle="modal" data-target="#editModal" data-user-id="' . $row['user_id'] . '" class="btn btn-primary editBtn">Edit</button>';
+                    echo '<button type="button" data-toggle="modal" data-target="#editModal" data-user-id="' . $row['id'] . '" class="btn btn-primary editBtn">Edit</button>';
                     echo '<br>';
-                    echo '<button type="button" data-user-id="' . $row['user_id'] . '" class="btn btn-danger deleteBtn">Delete</button>';
+                    echo '<button type="button" data-user-id="' . $row['id'] . '" class="btn btn-danger deleteBtn">Delete</button>';
                     echo "</td>";
                     echo "</tr>";
                    
@@ -121,7 +121,7 @@
         $.ajax({
             async: true,
             type: "GET",
-            url: "updateUser.php?userID=" + userID + "&FirstName=" + firstname
+            url: "process/updateUser.php?userID=" + userID + "&FirstName=" + firstname
              + "&LastName=" + lastname +  "&Gender=" + gender + "&Nationality=" + nationality
              + "&userEmail=" + email,
             dataType: "json",
@@ -182,7 +182,7 @@
         $.ajax({
             async: true,
             type: "GET",
-            url: "editUser.php?userID=" + userID + "&FirstName=" + firstname
+            url: "process/editModal.php?userID=" + userID + "&FirstName=" + firstname
              + "&LastName=" + lastname +  "&Gender=" + gender + "&Nationality=" + nationality
              + "&userEmail=" + email,
             dataType: "json",
@@ -233,7 +233,7 @@
                 $.ajax({
                     async: true,
                     type: "GET",
-                    url: "deleteUser.php?userID=" + userID,
+                    url: "process/deleteModal.php?userID=" + userID,
                     dataType: "json",
                     success: function (response) {
 

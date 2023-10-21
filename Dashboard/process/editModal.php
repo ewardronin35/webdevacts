@@ -2,8 +2,13 @@
 include '../Connection/dbconn.php';
 
 $userID = $_GET["userID"];
+$firstname = $_GET["FirstName"];
+$lastname = $_GET["LastName"];
+$gender = $_GET["Gender"];
+$nationality = $_GET["Nationality"];
+$email = $_GET["userEmail"];
 
-$sql = "SELECT * FROM registertable WHERE user_id = '$userID'";
+$sql = "SELECT * FROM registertable WHERE id = '$userID'";
 $select = mysqli_query($connection, $sql);
 
 if (mysqli_num_rows($select) != 0) {
