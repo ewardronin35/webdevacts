@@ -4,7 +4,7 @@
     <?php
     
     include "Connection/dbconn.php";
-    if (isset($_SESSION['user_id'])) {
+    if (isset($_SESSION['id'])) {
         header("Location: Dashboard/dashboard.php");
     }
     
@@ -17,7 +17,7 @@
     
         if (mysqli_num_rows($select) != 0) {
             $user = mysqli_fetch_array($select);
-            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['id'] = $user['id'];
             header("Location: Dashboard/dashboard.php");
         } else {
             echo "Failed to login";

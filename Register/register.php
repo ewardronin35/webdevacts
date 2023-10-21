@@ -1,21 +1,26 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Registration or Sign Up form in HTML CSS | CodingLab </title> 
+    <title>Registration or Sign Up form in HTML CSS | CodingLab</title>
     <link rel="stylesheet" href="register.css">
     <?php
-  include "../Connection/dbconn.php";
-  include 'registrationprocess.php';
-  ?>
-   </head>
+    include "../Connection/dbconn.php";
+    include 'registrationprocess.php';
+
+    // Check if registration is successful and display message
+    if (isset($registrationMessage)) {
+        echo "<div class='message'>$registrationMessage</div>";
+    }
+    ?>
+</head>
 <body>
   <div class="wrapper">
     <h2>Registration</h2>
     <form action="register.php" method="POST">
       <div class="input-box">
-      <input type="number" placeholder="User_ID" class="user_id" id="user_id" name="user_id" required />
+      <input type="number" placeholder="User_ID" class="id" id="id" name="id" required />
       </div>
       <div class="input-box">
       <input type="text" placeholder="First Name" class="FirstName" id="FirstName" name="FirstName" required />      </div>
