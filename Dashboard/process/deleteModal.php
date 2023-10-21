@@ -7,12 +7,12 @@ $con = mysqli_connect($host, $username, $password, $db_name);
 
 $userID = $_GET["userID"];
 
-$sql = "DELETE FROM registertable WHERE user_id = '$userID' LIMIT 1";
+$sql = "DELETE FROM registertable WHERE id = '$userID' LIMIT 1";
 $delete = mysqli_query($con, $sql);
 
 if ($delete) {
 
-    $sql = "SELECT * FROM registerable";
+    $sql = "SELECT * FROM registertable";
     $selectAll = mysqli_query($con, $sql);
 
     if (mysqli_num_rows($selectAll) != 0) {
@@ -21,7 +21,7 @@ if ($delete) {
 
         while ($row = mysqli_fetch_array($selectAll)) {
 
-            array_push($users,$row);
+            array_push($users, $row);
 
         }
 

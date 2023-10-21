@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <?php
+    
     include "Connection/dbconn.php";
     if (isset($_SESSION['user_id'])) {
         header("Location: Dashboard/dashboard.php");

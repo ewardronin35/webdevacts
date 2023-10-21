@@ -3,7 +3,7 @@ include '../Connection/dbconn.php';
 
 $userID = $_GET["userID"];
 
-$sql = "SELECT * FROM registertable WHERE user_id = '$userID'";
+$sql = "SELECT * FROM registertable WHERE id = '$userID'";
 $select = mysqli_query($connection, $sql);
 
 if (mysqli_num_rows($select) != 0) {

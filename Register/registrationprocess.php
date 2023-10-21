@@ -4,7 +4,7 @@ include "../Connection/dbconn.php";
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $user_id = $_POST['user_id'];
+    $user_id = $_POST['id'];
     $firstname = $_POST['FirstName'];
     $lastname = $_POST['LastName'];
     $gender = $_POST['gender'];
@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $password = md5($_POST['password']);
 
-    $sql = "INSERT INTO `registertable`(`user_id`, `first_name`, `last_name`, `gender`, `nationality`, `email`, `username`, `password`) VALUES
+    $sql = "INSERT INTO `registertable`(`id`, `first_name`, `last_name`, `gender`, `nationality`, `email`, `username`, `password`) VALUES
     ('$user_id', '$firstname', '$lastname', '$gender', '$nationality', '$email', '$username', '$password')";
 
     if ($connection->query($sql) === TRUE) {

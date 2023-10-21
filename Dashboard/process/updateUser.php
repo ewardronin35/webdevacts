@@ -8,7 +8,7 @@ $gender = $_GET["Gender"];
 $nationality = $_GET["Nationality"];
 $email = $_GET["userEmail"];
 
-$sql = "UPDATE `registertable` SET `first_name` = '$firstname', `last_name` = '$lastname', `gender` = '$gender', `nationality` = '$nationality', `email` = '$email' WHERE `user_id` = '$userID'";
+$sql = "UPDATE `registertable` SET `first_name` = '$firstname', `last_name` = '$lastname', `gender` = '$gender', `nationality` = '$nationality', `email` = '$email' WHERE `id` = '$userID'";
 
 $update = mysqli_query($connection, $sql);
 
