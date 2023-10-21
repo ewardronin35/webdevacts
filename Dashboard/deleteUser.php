@@ -12,7 +12,7 @@ $delete = mysqli_query($con, $sql);
 
 if ($delete) {
 
-    $sql = "SELECT * FROM registerable";
+    $sql = "SELECT * FROM registertable";
     $selectAll = mysqli_query($con, $sql);
 
     if (mysqli_num_rows($selectAll) != 0) {
@@ -21,7 +21,7 @@ if ($delete) {
 
         while ($row = mysqli_fetch_array($selectAll)) {
 
-            array_push($users,$row);
+            array_push($users, $row);
 
         }
 
