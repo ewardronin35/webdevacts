@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <?php
     session_start();
     include "../Connection/dbconn.php";
-    if (!isset($_SESSION['user_id'])) {
-        header("Location: Login/Login.php");
-    }
+    // if (!isset($_SESSION['user_id'])) {
+    //     header("Location: ../index.php");
+    // }
 
     if (isset($_GET['log'])) {
         if ($_GET['log'] == 'true') {
             session_destroy();
-            header("Location: Login/Login.php");
+            header("Location: ../index.php");
         }
     }
     ?>
@@ -41,36 +42,36 @@
             </tr>
         </thead>
         <tbody id="listUsers">
-    <?php
-    $sql = "SELECT * FROM `registertable`";
-    $result = $connection->query($sql);
+            <?php
+            
 
-    $counter = 0; // Initialize the counter
+            $sql = "SELECT * FROM `registertable`";
+            $result = $connection->query($sql);
 
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            $counter++; // Increment the counter for each user
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    ?>
+                    <?php echo "<tr>";
+                    echo "<td>" . $row["user_id"] . "</td>";
+                    echo "<td>" . $row["first_name"] . "</td>";
+                    echo "<td>" . $row["last_name"] . "</td>";
+                    echo "<td>" . $row["gender"] . "</td>";
+                    echo "<td>" . $row["nationality"] . "</td>";
+                    echo "<td>" . $row["email"] . "</td>";
+                    echo "<td>";
+                    echo '<button type="button" data-toggle="modal" data-target="#editModal" data-user-id="' . $row['user_id'] . '" class="btn btn-primary editBtn">Edit</button>';
+                    echo '<br>';
+                    echo '<button type="button" data-user-id="' . $row['user_id'] . '" class="btn btn-danger deleteBtn">Delete</button>';
+                    echo "</td>";
+                    echo "</tr>";
+                   
+                }
+            } else {
+                echo "<tr><td colspan='7'>No data available</td></tr>";
+            }
+
             ?>
-            <?php echo "<tr>";
-            echo "<td>" . $counter . "</td>"; // Display the counter
-            echo "<td>" . $row["first_name"] . "</td>";
-            echo "<td>" . $row["last_name"] . "</td>";
-            echo "<td>" . $row["gender"] . "</td>";
-            echo "<td>" . $row["nationality"] . "</td>";
-            echo "<td>" . $row["email"] . "</td>";
-            echo "<td>";
-            echo '<button type="button" data-toggle="modal" data-target="#editModal" data-user-id="' . $row['id'] . '" class="btn btn-primary editBtn">Edit</button>';
-            echo '<br>';
-            echo '<button type="button" data-user-id="' . $row['id'] . '" class="btn btn-danger deleteBtn">Delete</button>';
-            echo "</td>";
-            echo "</tr>";
-        }
-    } else {
-        echo "<tr><td colspan='7'>No data available</td></tr>";
-    }
-    ?>
-</tbody>
-
+        </tbody>
     </table>
     <!-- Modal -->
     <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -117,14 +118,14 @@
                 var nationality = $('#Nationality').val();
                 var email = $('#userEmail').val();
 
-                $.ajax({
-                    async: true,
-                    type: "GET",
-                    url: "process/updateUser.php?userID=" + userID + "&FirstName=" + firstname
-                        + "&LastName=" + lastname + "&Gender=" + gender + "&Nationality=" + nationality
-                        + "&userEmail=" + email,
-                    dataType: "json",
-                    success: function (response) {
+        $.ajax({
+            async: true,
+            type: "GET",
+            url: "updateUser.php?userID=" + userID + "&FirstName=" + firstname
+             + "&LastName=" + lastname +  "&Gender=" + gender + "&Nationality=" + nationality
+             + "&userEmail=" + email,
+            dataType: "json",
+            success: function (response) {
 
                         $('#editModal').modal('hide');
 
@@ -141,17 +142,18 @@
                         for (let i = 0; i < response.length; i++) {
                             counter++;
 
-                            var id, firstname, lastname, gender, nationality, email;
+                    var userID, firstname, lastname, gender, nationality, email;
 
-                            id = response[i][0];
-                            firstname = response[i][1];
-                            lastname = response[i][2];
-                            gender = response[i][3];
-                            nationality = response[i][4];
-                            email = response[i][5];
-
-                            $('#listUsers').append('<tr>\
-                            <th scope="row">'+ counter + '</th > \
+                    userID = response[i][0];
+                    firstname = response[i][1];
+                    lastname = response[i][2];
+                    gender = response[i][3];
+                    nationality = response[i][4];
+                    email = response[i][5];
+                 
+                    $('#listUsers').append('<tr>\
+                            <th scope="row">'+ counter + '</th >\
+                            <td>'+ userID + '</td>\
                             <td>'+ firstname + '</td>\
                             <td>'+ lastname + '</td>\
                             <td>'+ gender + '</td>\
@@ -177,24 +179,24 @@
                 e.preventDefault();
                 var userID = $(this).val();
 
-                $.ajax({
-                    async: true,
-                    type: "GET",
-                    url: "process/editModal.php?userID=" + userID + "&FirstName=" + firstname
-                        + "&LastName=" + lastname + "&Gender=" + gender + "&Nationality=" + nationality
-                        + "&userEmail=" + email,
-                    dataType: "json",
-                    contentType: false,
-                    processData: false,
-                    success: function (response) {
-                        var id, firstname, lastname, gender, nationality, email;
+        $.ajax({
+            async: true,
+            type: "GET",
+            url: "editUser.php?userID=" + userID + "&FirstName=" + firstname
+             + "&LastName=" + lastname +  "&Gender=" + gender + "&Nationality=" + nationality
+             + "&userEmail=" + email,
+            dataType: "json",
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                var userId, firstname, lastname, gender, nationality, email;
 
-                        id = response[0];
-                        firstname = response[1];
-                        lastname = response[2];
-                        gender = response[3];
-                        nationality = response[4];
-                        email = response[5];
+                 userId = response[0];
+                 firstname = response[1]; 
+                 lastname = response[2];
+                 gender = response[3];
+                 nationality = response[4];
+                 email = response[5];
 
                         $('#userID').val(userID);
                         $('#FirstName').val(firstname);
@@ -228,12 +230,12 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
 
-                        $.ajax({
-                            async: true,
-                            type: "GET",
-                            url: "process/deleteModal.php?userID=" + userID,
-                            dataType: "json",
-                            success: function (response) {
+                $.ajax({
+                    async: true,
+                    type: "GET",
+                    url: "deleteUser.php?userID=" + userID,
+                    dataType: "json",
+                    success: function (response) {
 
                                 Swal.fire(
                                     'Deleted!',
